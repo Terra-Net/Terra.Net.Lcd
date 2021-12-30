@@ -12,7 +12,7 @@ namespace Terra.Net.LcdClient
         {
         }
 
-        public async Task<TerraBlock> GetBlockByHeight(ulong height)
+        public async Task<TerraBlock> GetBlockByHeight(ulong height, CancellationToken ct)
         {
             throw new NotImplementedException();
         }
