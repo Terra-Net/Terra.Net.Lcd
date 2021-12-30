@@ -15,18 +15,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="icon\terra-logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icon\terra-logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CryptoExchange.Net" Version="4.2.8" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Converters\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="icon\terra-logo.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+	  <Folder Include="icon\" />
   </ItemGroup>
 
 
