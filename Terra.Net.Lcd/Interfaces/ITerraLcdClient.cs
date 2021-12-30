@@ -18,5 +18,6 @@ namespace Terra.Net.Lcd.Interfaces
         /// </summary>
         /// <returns>A successful response.</returns>
         Task<TerraBlock> GetBlockByHeight(ulong height, CancellationToken ct=default);
+        Task<TerraBlock> GetLatestBlock(CancellationToken ct = default);
     }
 }

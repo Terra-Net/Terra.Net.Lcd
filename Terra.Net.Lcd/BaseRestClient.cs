@@ -5,12 +5,12 @@ using Terra.Net.Lcd.Objects;
 
 namespace Terra.Net.Lcd
 {
-    public partial class TerraRestClient
+    public partial class BaseRestClient
     {
         private readonly TerraClientOptions _options;
         private readonly HttpClient _httpClient;
-        private readonly ILogger<TerraRestClient>? _logger;
-        public TerraRestClient(TerraClientOptions options, ILogger<TerraRestClient>? logger = null)
+        private readonly ILogger _logger;
+        public BaseRestClient(TerraClientOptions options, ILogger logger)
         {
             _logger = logger;
             _options = options;
@@ -46,7 +46,7 @@ namespace Terra.Net.Lcd
                 return default(T);
             }
         }
-      
+
         [LoggerMessage(EventId = 1, Level = LogLevel.Debug, Message = "{RequestId}] Executing request to {Endpoint} with params {body}")]
         partial void LogRequest(ulong id, string endpoint, string bodyOrParams);
         [LoggerMessage(EventId = 2, Level = LogLevel.Error, Message = "{RequestId}] request was failed with {statusCode}: {body} ")]
