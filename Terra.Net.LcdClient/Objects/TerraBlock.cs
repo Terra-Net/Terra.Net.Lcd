@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Terra.Net.LcdClient.Objects
+namespace Terra.Net.Lcd.Objects
 {
     
     public partial class TerraBlock

@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace Terra.Net.LcdClient.Tests
+namespace Terra.Net.Lcd.Tests
 {
     public class Tests
     {

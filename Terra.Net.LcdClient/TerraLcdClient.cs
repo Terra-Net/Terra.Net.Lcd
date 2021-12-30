@@ -1,10 +1,10 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
-using Terra.Net.LcdClient.Interfaces;
-using Terra.Net.LcdClient.Objects;
+using Terra.Net.Lcd.Interfaces;
+using Terra.Net.Lcd.Objects;
 
-namespace Terra.Net.LcdClient
+namespace Terra.Net.Lcd
 {
     public class TerraLcdClient : RestClient, ITerraLcdClient
     {

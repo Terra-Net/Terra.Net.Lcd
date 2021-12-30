@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Terra.Net.LcdClient.Objects;
+using Terra.Net.Lcd.Objects;
 
-namespace Terra.Net.LcdClient.Interfaces
+namespace Terra.Net.Lcd.Interfaces
 {
     /// <summary>
     /// https://fcd.terra.dev/swagger
