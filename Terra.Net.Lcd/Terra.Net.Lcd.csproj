@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <LangVersion>latest</LangVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/Terra-Net/Terra.Net.LcdClient</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -27,12 +28,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CryptoExchange.Net" Version="4.2.8" />
+    <Folder Include="Converters\" />
+	  <Folder Include="icon\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Converters\" />
-	  <Folder Include="icon\" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
 

@@ -1,20 +1,22 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Objects;
+﻿
+using Terra.Net.Lcd.Helpers;
 using Terra.Net.Lcd.Interfaces;
 using Terra.Net.Lcd.Objects;
 
 namespace Terra.Net.Lcd
 {
-    public class TerraLcdClient : RestClient, ITerraLcdClient
+    public class TerraLcdClient : TerraRestClient, ITerraLcdClient
     {
-        public TerraLcdClient(TerraClientOptions exchangeOptions) : base("terra", exchangeOptions, null)
+        #region Endpoints
+        private const string GetBlockByHeightUrl = "/blocks/{height}";
+        #endregion
+        public TerraLcdClient(TerraClientOptions exchangeOptions) : base(exchangeOptions)
         {
         }
 
-        public async Task<TerraBlock> GetBlockByHeight(ulong height, CancellationToken ct)
+        public async Task<TerraBlock> GetBlockByHeight(ulong height, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
+            return await Get<TerraBlock>(GetBlockByHeightUrl.FillPathParameters(height.ToString()), null, ct);
         }
     }
 }
