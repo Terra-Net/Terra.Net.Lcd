@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terra.Net.Lcd", "Terra.Net.LcdClient\Terra.Net.Lcd.csproj", "{7D25F2F7-082D-408D-B786-6CE30A1986E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terra.Net.Lcd", "Terra.Net.Lcd\Terra.Net.Lcd.csproj", "{7D25F2F7-082D-408D-B786-6CE30A1986E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terra.Net.Lcd.Tests", "Terra.Net.LcdClient.Tests\Terra.Net.Lcd.Tests.csproj", "{AA9F3EFF-7A58-4B68-A302-AA273C92A6CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terra.Net.Lcd.Tests", "Terra.Net.Lcd.Tests\Terra.Net.Lcd.Tests.csproj", "{AA9F3EFF-7A58-4B68-A302-AA273C92A6CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
