@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Text;
 using Terra.Net.Lcd.Helpers;
 using Terra.Net.Lcd.Objects;
 
@@ -17,33 +18,45 @@ namespace Terra.Net.Lcd
             _httpClient = _options.HttpClient;
         }
         private ulong _requestId;
-        public async Task<T> Get<T>(string endpoint, Dictionary<string, object>? parameters = null, CancellationToken ct = default)
+        public async Task<CallResult<T>> Get<T>(string endpoint, Dictionary<string, object>? parameters = null, CancellationToken ct = default)
         {
             var id = Interlocked.Read(ref _requestId);
             Interlocked.Increment(ref _requestId);
-
             var param = parameters.CreateUrlParameters();
+            LogRequest(id, endpoint, param);      
+            return await ProcessResponse<T>(await _httpClient.GetAsync(endpoint + param, ct), id, ct);
+        }
+        public async Task<CallResult<T>> Post<T>(string endpoint, Dictionary<string, object>? parameters = null, CancellationToken ct = default)
+        {
+            var id = Interlocked.Read(ref _requestId);
+            Interlocked.Increment(ref _requestId);
+            var param = JsonConvert.SerializeObject(parameters);
+            var json = new StringContent(param, Encoding.UTF8, "application/json");
             LogRequest(id, endpoint, param);
-            var data = await _httpClient.GetAsync(endpoint + param, ct);
+            return await ProcessResponse<T>(await _httpClient.PostAsync(endpoint, json, ct), id, ct);
+        }
+
+        private async Task<CallResult<T>> ProcessResponse<T>(HttpResponseMessage data, ulong requestId, CancellationToken ct = default)
+        {
             if (data.IsSuccessStatusCode)
             {
                 var content = await data.Content.ReadAsStringAsync(ct);
                 if (content != null)
                 {
-                    LogResponse(id);
-                    return JsonConvert.DeserializeObject<T>(content);
+                    LogResponse(requestId);
+                    return new CallResult<T>(JsonConvert.DeserializeObject<T>(content));
                 }
                 else
                 {
-                    LogEmptyResponse(id);
-                    return default(T);
+                    LogEmptyResponse(requestId);
+                    return new CallResult<T>(default(T));
                 }
-
             }
             else
             {
-                LogRequestFail(id, data.StatusCode.ToString(), await data.Content.ReadAsStringAsync(ct));
-                return default(T);
+                var body = await data.Content.ReadAsStringAsync();
+                LogRequestFail(requestId, data.StatusCode.ToString(), body);
+                return new CallResult<T>(default(T), JsonConvert.DeserializeObject<CallError>(body));
             }
         }
 

@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Terra.Net.Lcd.Objects
 {
-    
-    public partial class TerraBlock
+    public class BlockResponse
     {
         [JsonProperty("block_id")]
         public BlockId BlockId { get; set; }
@@ -16,8 +15,7 @@ namespace Terra.Net.Lcd.Objects
         [JsonProperty("block")]
         public Block Block { get; set; }
     }
-
-    public partial class Block
+    public class Block
     {
         [JsonProperty("header")]
         public TerraBlockHeader Header { get; set; }
@@ -32,19 +30,22 @@ namespace Terra.Net.Lcd.Objects
         public LastCommit LastCommit { get; set; }
     }
 
-    public partial class Data
+    public class Data
     {
+        /// <summary>
+        /// base64 representation of transactions body included in block
+        /// </summary>
         [JsonProperty("txs")]
         public string[] Txs { get; set; }
     }
 
-    public partial class Evidence
+    public class Evidence
     {
         [JsonProperty("evidence")]
         public object[] EvidenceEvidence { get; set; }
     }
 
-    public partial class TerraBlockHeader
+    public class TerraBlockHeader
     {
         [JsonProperty("version")]
         public Version Version { get; set; }
@@ -89,7 +90,7 @@ namespace Terra.Net.Lcd.Objects
         public string ProposerAddress { get; set; }
     }
 
-    public partial class BlockId
+    public class BlockId
     {
         [JsonProperty("hash")]
         public string Hash { get; set; }
@@ -98,7 +99,7 @@ namespace Terra.Net.Lcd.Objects
         public Parts Parts { get; set; }
     }
 
-    public partial class Parts
+    public class Parts
     {
         [JsonProperty("total")]
         public long Total { get; set; }
@@ -107,13 +108,13 @@ namespace Terra.Net.Lcd.Objects
         public string Hash { get; set; }
     }
 
-    public partial class Version
+    public class Version
     {
         [JsonProperty("block")]
         public long Block { get; set; }
     }
 
-    public partial class LastCommit
+    public class LastCommit
     {
         [JsonProperty("height")]
         public long Height { get; set; }
@@ -128,7 +129,7 @@ namespace Terra.Net.Lcd.Objects
         public Signature[] Signatures { get; set; }
     }
 
-    public partial class Signature
+    public class Signature
     {
         [JsonProperty("block_id_flag")]
         public long BlockIdFlag { get; set; }

@@ -1,9 +1,11 @@
 using NUnit.Framework;
+using Terra.Net.Lcd.Interfaces;
 
 namespace Terra.Net.Lcd.Tests
 {
-    public class Tests
+    public class LcdNodeIntegrationTests
     {
+        private readonly ITerraLcdClient _lcd;
         [SetUp]
         public void Setup()
         {

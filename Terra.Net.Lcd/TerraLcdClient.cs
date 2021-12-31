@@ -10,18 +10,50 @@ namespace Terra.Net.Lcd
     {
         #region Endpoints
         private const string GetBlockByHeightUrl = "/blocks/{height}";
+        private const string GetGasPricesUrl = "/v1/txs/gas_prices";
+        private const string GetMempoolUrl = "/v1/mempool?account=";
+
+
         #endregion
         public TerraLcdClient(TerraClientOptions exchangeOptions, ILogger<TerraLcdClient> logger) : base(exchangeOptions, logger)
         {
         }
+        #region Blocks
+        public async Task<CallResult<BlockResponse>> GetBlockByHeight(ulong height, CancellationToken ct = default)
+        {
+            return await Get<BlockResponse>(GetBlockByHeightUrl.FillPathParameters(height.ToString()), null, ct);
+        }
 
-        public async Task<TerraBlock> GetBlockByHeight(ulong height, CancellationToken ct = default)
+        public async Task<CallResult<BlockResponse>> GetLatestBlock(CancellationToken ct = default)
         {
-            return await Get<TerraBlock>(GetBlockByHeightUrl.FillPathParameters(height.ToString()), null, ct);
+            return await Get<BlockResponse>(GetBlockByHeightUrl.FillPathParameters("latest"), null, ct);
         }
-        public async Task<TerraBlock> GetLatestBlock(CancellationToken ct = default)
+        #endregion
+        #region Legacy tx endpoints
+        public async Task<CallResult<GasPrices>> GetGasPrices(CancellationToken ct = default)
         {
-            return await Get<TerraBlock>(GetBlockByHeightUrl.FillPathParameters("latest"), null, ct);
+            var data = await Get<Dictionary<string, ulong>>(GetGasPricesUrl, ct: ct);
+            if (data)
+            {
+                return new CallResult<GasPrices>(new GasPrices(data.Result));
+
+            }
+            else
+            {
+                return new CallResult<GasPrices>(default(GasPrices), data.Error);
+            }
         }
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task<CallResult<MempoolResponse>> GetMempool(string? address = null, CancellationToken ct = default)
+        {
+            return await Get<MempoolResponse>(GetMempoolUrl + address, ct: ct);
+        }
+        #endregion
+
     }
 }
