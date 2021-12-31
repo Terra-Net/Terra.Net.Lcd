@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terra.Net.Lcd.Objects;
+using Terra.Net.Lcd.Objects.Requests;
 
 namespace Terra.Net.Lcd.Interfaces
 {
@@ -26,6 +27,13 @@ namespace Terra.Net.Lcd.Interfaces
         /// <param name="ct"></param>
         /// <returns></returns>
         Task<CallResult<MempoolResponse>> GetMempool(string? address=null, CancellationToken ct = default);
+        Task<CallResult<Tx>> GetTxInMempool(string hash, CancellationToken ct = default);
+
+        Task<CallResult<Tx>> GetTx(string hash, CancellationToken ct = default);
+
+        Task<CallResult<List<Tx>>> GetTxList(GetTxListRequest request, CancellationToken ct = default);
+
+
         #endregion
 
         #region Blocks

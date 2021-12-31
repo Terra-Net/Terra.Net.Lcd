@@ -12,6 +12,12 @@ namespace Terra.Net.Lcd
         private const string GetBlockByHeightUrl = "/blocks/{height}";
         private const string GetGasPricesUrl = "/v1/txs/gas_prices";
         private const string GetMempoolUrl = "/v1/mempool?account=";
+        private const string GetTxInMempoolUrl = "/v1/mempool/{}";
+        private const string GetTxUrl = "/v1/tx/{}";
+        private const string GetTransactionsListUrl = "/v1/tx";
+
+
+
 
 
         #endregion
