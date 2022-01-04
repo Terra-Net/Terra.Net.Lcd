@@ -47,7 +47,7 @@ namespace Terra.Net.Lcd.Objects
         public Fee Fee { get; set; }
 
         [JsonProperty("signatures")]
-        public List<Signature> Signatures { get; set; }
+        public List<CommitSignature> Signatures { get; set; }
 
         [JsonProperty("memo")]
         public string Memo { get; set; }

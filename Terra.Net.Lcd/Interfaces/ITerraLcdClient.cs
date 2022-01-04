@@ -42,8 +42,8 @@ namespace Terra.Net.Lcd.Interfaces
         /// GetBlockByHeight queries block for given height.
         /// </summary>
         /// <returns>A successful response.</returns>
-        Task<CallResult<BlockResponse>> GetBlockByHeight(ulong height, CancellationToken ct=default);
-        Task<CallResult<BlockResponse>> GetLatestBlock(CancellationToken ct = default);
+        Task<CallResult<BlockResponseOld>> GetBlockByHeight(ulong height, CancellationToken ct=default);
+        Task<CallResult<BlockResponseOld>> GetLatestBlock(CancellationToken ct = default);
         #endregion
     }
 }

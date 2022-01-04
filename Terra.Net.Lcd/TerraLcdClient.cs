@@ -9,12 +9,15 @@ namespace Terra.Net.Lcd
     public class TerraLcdClient : BaseRestClient, ITerraLcdClient
     {
         #region Endpoints
-        private const string GetBlockByHeightUrl = "/blocks/{height}";
+        private const string GetBlockByHeightOldUrl = "/blocks/{}";
         private const string GetGasPricesUrl = "/v1/txs/gas_prices";
         private const string GetMempoolUrl = "/v1/mempool?account=";
         private const string GetTxInMempoolUrl = "/v1/mempool/{}";
         private const string GetTxUrl = "/v1/tx/{}";
         private const string GetTransactionsListUrl = "/v1/tx";
+        
+        private const string GetBlockByHeightUrl = "/cosmos/base/tendermint/v1beta1/blocks/{}";
+        private const string SimulateUrl = "/cosmos/tx/v1beta1/simulate";
 
 
 
@@ -25,14 +28,14 @@ namespace Terra.Net.Lcd
         {
         }
         #region Blocks
-        public async Task<CallResult<BlockResponse>> GetBlockByHeight(ulong height, CancellationToken ct = default)
+        public async Task<CallResult<BlockResponseOld>> GetBlockByHeightOldAsync(ulong height, CancellationToken ct = default)
         {
-            return await Get<BlockResponse>(GetBlockByHeightUrl.FillPathParameters(height.ToString()), null, ct);
+            return await Get<BlockResponseOld>(GetBlockByHeightUrl.FillPathParameters(height.ToString()), null, ct);
         }
 
-        public async Task<CallResult<BlockResponse>> GetLatestBlock(CancellationToken ct = default)
+        public async Task<CallResult<BlockResponseOld>> GetLatestBlockOldAsync(CancellationToken ct = default)
         {
-            return await Get<BlockResponse>(GetBlockByHeightUrl.FillPathParameters("latest"), null, ct);
+            return await Get<BlockResponseOld>(GetBlockByHeightUrl.FillPathParameters("latest"), null, ct);
         }
         #endregion
         #region Legacy tx endpoints
