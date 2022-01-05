@@ -42,8 +42,58 @@ namespace Terra.Net.Lcd.Interfaces
         /// GetBlockByHeight queries block for given height.
         /// </summary>
         /// <returns>A successful response.</returns>
-        Task<CallResult<BlockResponseOld>> GetBlockByHeight(ulong height, CancellationToken ct=default);
-        Task<CallResult<BlockResponseOld>> GetLatestBlock(CancellationToken ct = default);
+        Task<CallResult<BlockResponseOld>> GetBlockByHeightOld(ulong height, CancellationToken ct = default);
+        /// <summary>
+        /// Get the latest block
+        /// </summary>
+        /// <param name="ct">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        /// <returns></returns>
+        Task<CallResult<BlockResponseOld>> GetLatestBlockOld(CancellationToken ct = default);
+        #endregion
+
+        #region Service
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// GetBlockByHeight queries block for given height.
+        /// </summary>
+        /// <returns>A successful response.</returns>
+        Task<CallResult<BlockResponse>> GetBlockByHeight(ulong height, CancellationToken ct=default);
+        /// <summary>
+        /// Get the latest block
+        /// </summary>
+        /// <param name="ct">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        /// <returns></returns>
+        Task<CallResult<BlockResponse>> GetLatestBlock(CancellationToken ct = default);
+
+        /// <summary>
+        /// GetNodeInfo queries the current node info.
+        /// </summary>
+        /// <param name="ct">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        /// <returns></returns>
+        Task<CallResult<NodeInfo>> GetNodeInfo(CancellationToken ct = default);
+
+        /// <summary>
+        /// GetSyncing queries node syncing.
+        /// </summary>
+        /// <param name="ct">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        /// <returns></returns>
+        Task<CallResult<SyncingResponse>> GetSyncing(CancellationToken ct = default);
+
+        /// <summary>
+        /// queries validator-set at a given height.
+        /// </summary>
+        /// <param name="height"></param>
+        /// <param name="paginationParams"></param>
+        /// <param name="ct">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        /// <returns></returns>
+        Task<CallResult<ValidatorSetResponse>> GetValidatorSetByHeight(ulong height, PaginationRequest paginationParams,  CancellationToken ct = default);
+        /// <summary>
+        /// queries latest validator-set.
+        /// </summary>
+        /// <param name="paginationParams"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<CallResult<ValidatorSetResponse>> GetLatestValidatorSet(PaginationRequest paginationParams,  CancellationToken ct = default);
         #endregion
     }
 }

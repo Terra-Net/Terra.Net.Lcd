@@ -108,7 +108,7 @@ namespace Terra.Net.Lcd.Objects
         public string CommonHeight { get; set; }
 
         [JsonProperty("byzantine_validators")]
-        public List<ByzantineValidator> ByzantineValidators { get; set; }
+        public List<TendermintValidator> ByzantineValidators { get; set; }
 
         [JsonProperty("total_voting_power")]
         public string TotalVotingPower { get; set; }
@@ -117,7 +117,7 @@ namespace Terra.Net.Lcd.Objects
         public DateTimeOffset Timestamp { get; set; }
     }
 
-    public class ByzantineValidator
+    public class TendermintValidator
     {
         [JsonProperty("address")]
         public string Address { get; set; }
@@ -126,10 +126,10 @@ namespace Terra.Net.Lcd.Objects
         public PubKey PubKey { get; set; }
 
         [JsonProperty("voting_power")]
-        public string VotingPower { get; set; }
+        public long VotingPower { get; set; }
 
         [JsonProperty("proposer_priority")]
-        public string ProposerPriority { get; set; }
+        public long ProposerPriority { get; set; }
     }
 
     public class PubKey
@@ -147,7 +147,7 @@ namespace Terra.Net.Lcd.Objects
         public SignedHeader SignedHeader { get; set; }
 
         [JsonProperty("validator_set")]
-        public ValidatorSet ValidatorSet { get; set; }
+        public BlockValidatorSet ValidatorSet { get; set; }
     }
 
     public class SignedHeader
@@ -204,16 +204,16 @@ namespace Terra.Net.Lcd.Objects
         public string ProposerAddress { get; set; }
     }
 
-    public class ValidatorSet
+    public class BlockValidatorSet
     {
         [JsonProperty("validators")]
-        public List<ByzantineValidator> Validators { get; set; }
+        public List<TendermintValidator> Validators { get; set; }
 
         [JsonProperty("proposer")]
-        public ByzantineValidator Proposer { get; set; }
+        public TendermintValidator Proposer { get; set; }
 
         [JsonProperty("total_voting_power")]
-        public string TotalVotingPower { get; set; }
+        public long TotalVotingPower { get; set; }
     }
    
     public class BlockResponseOld
@@ -239,10 +239,15 @@ namespace Terra.Net.Lcd.Objects
         public Commit LastCommit { get; set; }
     }
 
+    /// <summary>
+    /// Data contains the set of transactions included in the block
+    /// </summary>
     public class Data
     {
         /// <summary>
-        /// base64 representation of transactions body included in block
+        /// Txs that will be applied by state @ block.Height+1.
+        /// NOTE: not all txs here are valid.  We're just agreeing on the order first.
+        /// This means that block.AppHash does not include these txs.
         /// </summary>
         [JsonProperty("txs")]
         public string[] Txs { get; set; }
@@ -322,16 +327,6 @@ namespace Terra.Net.Lcd.Objects
     /// </summary>
     public class BasicBlockInfo
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BasicBlockInfo" /> class.
-        /// </summary>
-        /// <param name="block">block.</param>
-        /// <param name="app">app.</param>
-        public BasicBlockInfo(ulong block = default(ulong), ulong app = default(ulong))
-        {
-            this.Block = block;
-            this.App = app;
-        }
 
         /// <summary>
         /// Gets or Sets Block

@@ -60,13 +60,13 @@ namespace Terra.Net.Lcd
             }
         }
 
-        [LoggerMessage(EventId = 1, Level = LogLevel.Debug, Message = "{RequestId}] Executing request to {Endpoint} with params {body}")]
+        [LoggerMessage(EventId = 1, Level = LogLevel.Debug, Message = "{id} Executing request to {Endpoint} with params {bodyOrParams}")]
         partial void LogRequest(ulong id, string endpoint, string bodyOrParams);
-        [LoggerMessage(EventId = 2, Level = LogLevel.Error, Message = "{RequestId}] request was failed with {statusCode}: {body} ")]
+        [LoggerMessage(EventId = 2, Level = LogLevel.Error, Message = "{id} request was failed with {statusCode}: {body} ")]
         partial void LogRequestFail(ulong id, string statusCode, string body);
-        [LoggerMessage(EventId = 3, Level = LogLevel.Debug, Message = "{RequestId}] catched response")]
+        [LoggerMessage(EventId = 3, Level = LogLevel.Debug, Message = "{id} catched response")]
         partial void LogResponse(ulong id);
-        [LoggerMessage(EventId = 4, Level = LogLevel.Warning, Message = "{RequestId}] has empty response")]
+        [LoggerMessage(EventId = 4, Level = LogLevel.Warning, Message = "{id} has empty response")]
         partial void LogEmptyResponse(ulong id);
     }
 }
