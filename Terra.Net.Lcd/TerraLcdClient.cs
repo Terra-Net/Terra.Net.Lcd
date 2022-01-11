@@ -109,14 +109,14 @@ namespace Terra.Net.Lcd
         }
 
         /// <inheritdoc />
-        public Task<CallResult<ValidatorSetResponse>> GetValidatorSetByHeight(ulong height, PaginationRequest paginationParams, CancellationToken ct = default) 
+        public Task<CallResult<ValidatorSetResponse>> GetValidatorSetByHeight(ulong height, PaginationRequest? paginationParams = null, CancellationToken ct = default) 
             => GetValidatorSet(height.ToString(), paginationParams, ct);
 
         /// <inheritdoc />
-        public Task<CallResult<ValidatorSetResponse>> GetLatestValidatorSet(PaginationRequest paginationParams, CancellationToken ct = default)
+        public Task<CallResult<ValidatorSetResponse>> GetLatestValidatorSet(PaginationRequest? paginationParams = null, CancellationToken ct = default)
             => GetValidatorSet("latest", paginationParams, ct);
 
-        private async Task<CallResult<ValidatorSetResponse>> GetValidatorSet(string height, PaginationRequest paginationParams, CancellationToken ct = default)
+        private async Task<CallResult<ValidatorSetResponse>> GetValidatorSet(string height, PaginationRequest? paginationParams, CancellationToken ct = default)
         {
             var p = paginationParams?.AsDictionary();
             return await Get<ValidatorSetResponse>(GetValidatorSetUrl.FillPathParameters(height), p, ct);

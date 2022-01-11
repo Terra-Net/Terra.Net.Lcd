@@ -8,6 +8,6 @@ namespace Terra.Net.Lcd.Objects.Requests
         public virtual ulong? Offset { get; set; }
         
         [JsonProperty("limit")]
-        public ulong? Limit { get; set; }
+        public virtual ulong? Limit { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Terra.Net.Lcd.Objects
             Error = error;
         }
         public readonly CallError? Error;
-        public bool IsSuccess => Error != null;
+        public bool IsSuccess => Error == null;
         public readonly T Result;
         public static implicit operator bool(CallResult<T> callResult)=>callResult.IsSuccess;
     }

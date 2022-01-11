@@ -395,7 +395,7 @@ namespace Terra.Net.Lcd.Helpers
             foreach (var parameter in parameters)
                 httpValueCollection.Add(parameter.Key, parameter.Value.ToString());
 
-            return httpValueCollection.ToString();           
+            return "?" + httpValueCollection.ToString();           
         }
 
         /// <summary>
