@@ -14,14 +14,14 @@ namespace Terra.Net.Lcd
         private const string GetGasPricesUrl = "/v1/txs/gas_prices";
         private const string GetMempoolUrl = "/v1/mempool?account=";
         private const string GetTxInMempoolUrl = "/v1/mempool/{}";
-        private const string GetTxUrl = "/v1/tx/{}";
-        private const string GetTransactionsListUrl = "/v1/tx";
+        private const string GetTxOldUrl = "/v1/tx/{}";
+        private const string GetTransactionsListOldUrl = "/v1/tx";
         private const string GetBlockByHeightUrl = "/cosmos/base/tendermint/v1beta1/blocks/{}";
         private const string GetNodeInfoUrl = "/cosmos/base/tendermint/v1beta1/node_info";
         private const string GetSyncingUrl = "/cosmos/base/tendermint/v1beta1/syncing";
         private const string GetValidatorSetUrl = "/cosmos/base/tendermint/v1beta1/validatorsets/{}";
         private const string SimulateUrl = "/cosmos/tx/v1beta1/simulate";
-
+        private const string TransactionUrl = "/cosmos/tx/v1beta1/txs";
 
 
 
@@ -66,17 +66,17 @@ namespace Terra.Net.Lcd
         {
             return await Get<MempoolResponse>(GetMempoolUrl + address, ct: ct);
         }
-        public Task<CallResult<Tx>> GetTxInMempool(string hash, CancellationToken ct = default)
+        public Task<CallResult<TxOld>> GetTxInMempool(string hash, CancellationToken ct = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<CallResult<Tx>> GetTx(string hash, CancellationToken ct = default)
+        public Task<CallResult<TxOld>> GetTx(string hash, CancellationToken ct = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<CallResult<List<Tx>>> GetTxList(GetTxListRequest request, CancellationToken ct = default)
+        public Task<CallResult<List<TxOld>>> GetTxList(GetTxListRequest request, CancellationToken ct = default)
         {
             throw new NotImplementedException();
         }
@@ -122,8 +122,34 @@ namespace Terra.Net.Lcd
             return await Get<ValidatorSetResponse>(GetValidatorSetUrl.FillPathParameters(height), p, ct);
         }
 
+        /// <inheritdoc />
+        public async Task<CallResult<SimulateResponse>> Simulate(SimulateRequest request, CancellationToken ct = default)
+        {
+            var p = new Dictionary<string, object>();
+            p.Add("body", request);
+            return await Post<SimulateResponse>(SimulateUrl, p, ct);
+        }
 
-
+        /// <inheritdoc />
+        public async Task<CallResult<TxsEventResponse>> GetTxsByEvent(IEnumerable<Event> transactionEvents, PaginationRequest paginationParams = null, CosmosOrdering orderBy = CosmosOrdering.ASC, CancellationToken ct = default)
+        {
+            var whereConditions = new List<string>();
+            foreach(var e in transactionEvents)
+            {
+                whereConditions.AddRange(e.ToRequestString());
+            }
+            return await GetTxsByEvent(whereConditions, paginationParams, orderBy, ct);
+        }
+        
+        /// <inheritdoc />
+        public async Task<CallResult<TxsEventResponse>> GetTxsByEvent(IEnumerable<string> conditions, PaginationRequest paginationParams = null, CosmosOrdering orderBy = CosmosOrdering.ASC, CancellationToken ct = default)
+        {
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.AddRange(conditions.Select(x => new KeyValuePair<string, object>("events", x)));
+            parameters.Concat(paginationParams.AsDictionary());
+            parameters.Concat(orderBy.AsDictionary());
+            return await Get<TxsEventResponse>(TransactionUrl, parameters, ct);
+        }
         #endregion // end of Service reg
     }
 }

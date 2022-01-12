@@ -386,7 +386,7 @@ namespace Terra.Net.Lcd.Helpers
             uriBuilder.Query = httpValueCollection.ToString();
             return uriBuilder.Uri;
         }
-        public static string CreateUrlParameters(this IDictionary<string, object>? parameters)
+        public static string CreateUrlParameters(this IEnumerable<KeyValuePair<string, object>>? parameters)
         {
             if (parameters == null || !parameters.Any())
                 return String.Empty;

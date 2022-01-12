@@ -18,7 +18,7 @@ namespace Terra.Net.Lcd
             _httpClient = _options.HttpClient;
         }
         private ulong _requestId;
-        public async Task<CallResult<T>> Get<T>(string endpoint, Dictionary<string, object>? parameters = null, CancellationToken ct = default)
+        public async Task<CallResult<T>> Get<T>(string endpoint, IEnumerable<KeyValuePair<string, object>> parameters = null, CancellationToken ct = default)
         {
             var id = Interlocked.Read(ref _requestId);
             Interlocked.Increment(ref _requestId);
