@@ -22,6 +22,15 @@ namespace Terra.Net.Lcd.Objects
     }
 
     /// <summary>
+    /// the response type for the Service.BroadcastTx method.
+    /// </summary>
+    public class BroadcastTxResponse
+    {
+        [JsonProperty("tx_response")]
+        public TxResponse TxResponse { get; set; }
+    }
+
+    /// <summary>
     ///  TxResponse defines a structure containing relevant tx data and metadata.The
     /// tags are stringified and the log is JSON decoded.
     /// </summary>

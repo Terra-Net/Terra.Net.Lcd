@@ -17,14 +17,14 @@ namespace Terra.Net.Lcd.Interfaces
         /// <summary>
         /// Get gas prices
         /// </summary>
-        /// <param name="ct"></param>
+        /// <param name="ct">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         /// <returns></returns>
         Task<CallResult<GasPrices>> GetGasPrices(CancellationToken ct = default);
         /// <summary>
         /// Get transactions in mempool
         /// </summary>
         /// <param name="address">if set, returns txs by specified account</param>
-        /// <param name="ct"></param>
+        /// <param name="ct">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         /// <returns></returns>
         Task<CallResult<MempoolResponse>> GetMempool(string? address=null, CancellationToken ct = default);
         Task<CallResult<TxOld>> GetTxInMempool(string hash, CancellationToken ct = default);
@@ -91,7 +91,7 @@ namespace Terra.Net.Lcd.Interfaces
         /// queries latest validator-set.
         /// </summary>
         /// <param name="paginationParams"></param>
-        /// <param name="ct"></param>
+        /// <param name="ct">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         /// <returns></returns>
         Task<CallResult<ValidatorSetResponse>> GetLatestValidatorSet(PaginationRequest paginationParams,  CancellationToken ct = default);
         /// <summary>
@@ -100,7 +100,7 @@ namespace Terra.Net.Lcd.Interfaces
         /// <param name="request">the request type for the Service.Simulate RPC method.</param>
         /// <param name="ct">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         /// <returns></returns>
-        Task<CallResult<SimulateResponse>> Simulate(SimulateRequest request, CancellationToken ct = default);
+        Task<CallResult<SimulateResponse>> Simulate(SimulateRequest body, CancellationToken ct = default);
 
         /// <summary>
         /// GetTxsEvent fetches txs by event.
@@ -120,9 +120,19 @@ namespace Terra.Net.Lcd.Interfaces
         /// </param>
         /// <param name="paginationParams"></param>
         /// <param name="orderBy"></param>
-        /// <param name="ct"></param>
+        /// <param name="ct">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
         /// <returns></returns>
         Task<CallResult<TxsEventResponse>> GetTxsByEvent(IEnumerable<string> conditions, PaginationRequest paginationParams = null, CosmosOrdering orderBy = CosmosOrdering.ASC, CancellationToken ct = default);
+
+        /// <summary>
+        /// broadcast transaction.
+        /// </summary>
+        /// <param name="body">BroadcastTxRequest is the request type for the Service.BroadcastTxRequest
+        /// RPC method.</param>
+        /// <param name="ct">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        /// <returns></returns>
+        Task<CallResult<TxResponse>> BroadcastTx(BroadcastTxRequest body, CancellationToken ct = default);
+
 
         #endregion
     }

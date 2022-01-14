@@ -123,10 +123,10 @@ namespace Terra.Net.Lcd
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<SimulateResponse>> Simulate(SimulateRequest request, CancellationToken ct = default)
+        public async Task<CallResult<SimulateResponse>> Simulate(SimulateRequest body, CancellationToken ct = default)
         {
             var p = new Dictionary<string, object>();
-            p.Add("body", request);
+            p.Add("body", body);
             return await Post<SimulateResponse>(SimulateUrl, p, ct);
         }
 
@@ -150,6 +150,17 @@ namespace Terra.Net.Lcd
             parameters.Concat(orderBy.AsDictionary());
             return await Get<TxsEventResponse>(TransactionUrl, parameters, ct);
         }
+
+        /// <inheritdoc />
+        public async Task<CallResult<TxResponse>> BroadcastTx(BroadcastTxRequest body, CancellationToken ct = default)
+        {
+            var p = new Dictionary<string, object>();
+            p.Add("body", body);
+            return await Post<TxResponse>(TransactionUrl, p, ct);
+        }
+
+
+
         #endregion // end of Service reg
     }
 }
