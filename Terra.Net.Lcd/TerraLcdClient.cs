@@ -22,6 +22,8 @@ namespace Terra.Net.Lcd
         private const string GetValidatorSetUrl = "/cosmos/base/tendermint/v1beta1/validatorsets/{}";
         private const string SimulateUrl = "/cosmos/tx/v1beta1/simulate";
         private const string TransactionUrl = "/cosmos/tx/v1beta1/txs";
+        private const string TransactionByHashUrl = "/cosmos/tx/v1beta1/txs/{}";
+        private const string ComputeTaxUrl = "/terra/tx/v1beta1/compute_tax";
 
 
 
@@ -71,7 +73,7 @@ namespace Terra.Net.Lcd
             throw new NotImplementedException();
         }
 
-        public Task<CallResult<TxOld>> GetTx(string hash, CancellationToken ct = default)
+        public Task<CallResult<TxOld>> GetTxOld(string hash, CancellationToken ct = default)
         {
             throw new NotImplementedException();
         }
@@ -157,6 +159,20 @@ namespace Terra.Net.Lcd
             var p = new Dictionary<string, object>();
             p.Add("body", body);
             return await Post<TxResponse>(TransactionUrl, p, ct);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<GetTxResponse>> GetTx(string hash, CancellationToken ct = default)
+        {
+            return await Get<GetTxResponse>(TransactionByHashUrl.FillPathParameters(hash), null, ct);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<EstimateFeeResponse>> EstimateFee(SimulateRequest body, CancellationToken ct = default)
+        {
+            var p = new Dictionary<string, object>();
+            p.Add("body", body);
+            return await Post<EstimateFeeResponse>(ComputeTaxUrl, p, ct);
         }
 
 

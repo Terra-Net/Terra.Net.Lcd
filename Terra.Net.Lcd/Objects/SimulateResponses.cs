@@ -58,4 +58,10 @@ namespace Terra.Net.Lcd.Objects
         [JsonProperty("events")]
         public List<Event> Events { get; set; }
     }
+
+    public class EstimateFeeResponse
+    {
+        [JsonProperty("tax_amount")]
+        public List<Amount> TaxAmount { get; set; }
+    }
 }

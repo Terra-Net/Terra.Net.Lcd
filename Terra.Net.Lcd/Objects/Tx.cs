@@ -14,7 +14,7 @@ namespace Terra.Net.Lcd.Objects
         /// TxBody is the body of a transaction that all signers sign over.
         /// </summary>
         [JsonProperty("body")]
-        public TxBodyOld Body { get; set; }
+        public TxBody Body { get; set; }
 
         /// <summary>
         /// AuthInfo describes the fee and signer modes that are used to sign a

@@ -29,7 +29,7 @@ namespace Terra.Net.Lcd.Interfaces
         Task<CallResult<MempoolResponse>> GetMempool(string? address=null, CancellationToken ct = default);
         Task<CallResult<TxOld>> GetTxInMempool(string hash, CancellationToken ct = default);
 
-        Task<CallResult<TxOld>> GetTx(string hash, CancellationToken ct = default);
+        Task<CallResult<TxOld>> GetTxOld(string hash, CancellationToken ct = default);
 
         Task<CallResult<List<TxOld>>> GetTxList(GetTxListRequest request, CancellationToken ct = default);
 
@@ -133,6 +133,21 @@ namespace Terra.Net.Lcd.Interfaces
         /// <returns></returns>
         Task<CallResult<TxResponse>> BroadcastTx(BroadcastTxRequest body, CancellationToken ct = default);
 
+        /// <summary>
+        /// GetTx fetches a tx by hash.
+        /// </summary>
+        /// <param name="hash">hash is the tx hash to query, encoded as a hex string.</param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<CallResult<GetTxResponse>> GetTx(string hash, CancellationToken ct = default);
+
+        /// <summary>
+        /// EstimateFee simulates executing a transaction for estimating gas usage.
+        /// </summary>
+        /// <param name="request">the request type for the Service.Simulate RPC method.</param>
+        /// <param name="ct">A cancellation token that can be used by other objects or threads to receive notice of cancellation</param>
+        /// <returns></returns>
+        Task<CallResult<EstimateFeeResponse>> EstimateFee(SimulateRequest body, CancellationToken ct = default);
 
         #endregion
     }
