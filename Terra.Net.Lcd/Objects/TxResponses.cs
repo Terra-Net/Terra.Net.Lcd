@@ -118,7 +118,7 @@ namespace Terra.Net.Lcd.Objects
         /// it's genesis time."
         /// </summary>
         [JsonProperty("timestamp")]
-        public string Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 
     /// <summary>

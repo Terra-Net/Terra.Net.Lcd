@@ -66,7 +66,7 @@ namespace Terra.Net.Lcd.Objects
         public string ValidatorPower { get; set; }
 
         [JsonProperty("timestamp")]
-        public DateTimeOffset Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 
     /// <summary>
@@ -87,7 +87,7 @@ namespace Terra.Net.Lcd.Objects
         public BlockId BlockId { get; set; }
 
         [JsonProperty("timestamp")]
-        public DateTimeOffset Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
 
         [JsonProperty("validator_address")]
         public string ValidatorAddress { get; set; }
@@ -114,7 +114,7 @@ namespace Terra.Net.Lcd.Objects
         public string TotalVotingPower { get; set; }
 
         [JsonProperty("timestamp")]
-        public DateTimeOffset Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 
     public class TendermintValidator
@@ -171,7 +171,7 @@ namespace Terra.Net.Lcd.Objects
         public string Height { get; set; }
 
         [JsonProperty("time")]
-        public DateTimeOffset Time { get; set; }
+        public DateTime Time { get; set; }
 
         [JsonProperty("last_block_id")]
         public BlockId LastBlockId { get; set; }
@@ -271,7 +271,7 @@ namespace Terra.Net.Lcd.Objects
         public ulong Height { get; set; }
 
         [JsonProperty("time")]
-        public DateTimeOffset Time { get; set; }
+        public DateTime Time { get; set; }
 
         [JsonProperty("last_block_id")]
         public BlockId LastBlockId { get; set; }
@@ -373,7 +373,7 @@ namespace Terra.Net.Lcd.Objects
         public string ValidatorAddress { get; set; }
 
         [JsonProperty("timestamp")]
-        public DateTimeOffset Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
 
         [JsonProperty("signature")]
         public string Signature { get; set; }
