@@ -59,6 +59,9 @@ namespace Terra.Net.Lcd.Objects
         public List<Event> Events { get; set; }
     }
 
+    /// <summary>
+    /// the request type for the Service.ComputeTax RPC method.
+    /// </summary>
     public class EstimateFeeResponse
     {
         [JsonProperty("tax_amount")]

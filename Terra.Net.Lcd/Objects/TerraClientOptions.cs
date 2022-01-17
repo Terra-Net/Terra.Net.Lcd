@@ -11,11 +11,11 @@ namespace Terra.Net.Lcd.Objects
     {
         public readonly HttpClient HttpClient;
         public readonly string BaseAddress;
-        public TerraClientOptions() : this("https://lcd.terra.dev")
+        public TerraClientOptions() : this("https://fcd.terra.dev")
         {
 
         }
-        public TerraClientOptions(HttpClient httpClient) : this(httpClient, "https://lcd.terra.dev")
+        public TerraClientOptions(HttpClient httpClient) : this(httpClient, "https://fcd.terra.dev")
         {
         }
         public TerraClientOptions(string baseAddress)

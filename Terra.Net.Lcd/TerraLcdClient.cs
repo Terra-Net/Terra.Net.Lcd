@@ -12,10 +12,10 @@ namespace Terra.Net.Lcd
         #region Endpoints
         private const string GetBlockByHeightOldUrl = "/blocks/{}";
         private const string GetGasPricesUrl = "/v1/txs/gas_prices";
-        private const string GetMempoolUrl = "/v1/mempool?account=";
+        private const string GetMempoolUrl = "/v1/mempool";
         private const string GetTxInMempoolUrl = "/v1/mempool/{}";
         private const string GetTxOldUrl = "/v1/tx/{}";
-        private const string GetTransactionsListOldUrl = "/v1/tx";
+        private const string GetTransactionsListOldUrl = "/v1/txs";
         private const string GetBlockByHeightUrl = "/cosmos/base/tendermint/v1beta1/blocks/{}";
         private const string GetNodeInfoUrl = "/cosmos/base/tendermint/v1beta1/node_info";
         private const string GetSyncingUrl = "/cosmos/base/tendermint/v1beta1/syncing";
@@ -66,21 +66,24 @@ namespace Terra.Net.Lcd
         /// <returns></returns>
         public async Task<CallResult<MempoolResponse>> GetMempool(string? address = null, CancellationToken ct = default)
         {
-            return await Get<MempoolResponse>(GetMempoolUrl + address, ct: ct);
+            return await Get<MempoolResponse>(GetMempoolUrl
+                                                , address == null ? null : new Dictionary<string, object>(){{"address", address}}
+                                                , ct: ct);
         }
-        public Task<CallResult<TxOld>> GetTxInMempool(string hash, CancellationToken ct = default)
+        public async Task<CallResult<TxOld>> GetTxInMempool(string hash, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<CallResult<TxOld>> GetTxOld(string hash, CancellationToken ct = default)
-        {
-            throw new NotImplementedException();
+            return await Get<TxOld>(GetTxInMempoolUrl.FillPathParameters(hash.ToString()), null, ct);
         }
 
-        public Task<CallResult<List<TxOld>>> GetTxList(GetTxListRequest request, CancellationToken ct = default)
+        public async Task<CallResult<TxOld>> GetTxOld(string hash, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
+            return await Get<TxOld>(GetTxOldUrl.FillPathParameters(hash), null, ct);
+        }
+
+        public async Task<CallResult<TxsListResponseOld>> GetTxListOld(GetTxListRequest request, CancellationToken ct = default)
+        {
+            var parameters = request?.AsDictionary();
+            return await Get<TxsListResponseOld>(GetTransactionsListOldUrl, parameters, ct);
         }
         #endregion  // Legacy tx endpoints
 

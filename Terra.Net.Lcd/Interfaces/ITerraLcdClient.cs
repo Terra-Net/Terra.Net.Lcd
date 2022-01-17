@@ -31,7 +31,7 @@ namespace Terra.Net.Lcd.Interfaces
 
         Task<CallResult<TxOld>> GetTxOld(string hash, CancellationToken ct = default);
 
-        Task<CallResult<List<TxOld>>> GetTxList(GetTxListRequest request, CancellationToken ct = default);
+        Task<CallResult<TxsListResponseOld>> GetTxListOld(GetTxListRequest request, CancellationToken ct = default);
 
 
         #endregion
