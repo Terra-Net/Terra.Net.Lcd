@@ -98,7 +98,7 @@ namespace Terra.Net.Lcd.Objects
         public string Info { get; set; }
 
         [JsonProperty("tx")]
-        public ExtensionOption Tx { get; set; }
+        public ProtoBufMessage Tx { get; set; }
 
         /// <summary>
         /// "Time of the previous block. For heights > 1, it's the weighted median of

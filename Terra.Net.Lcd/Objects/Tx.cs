@@ -153,7 +153,7 @@ namespace Terra.Net.Lcd.Objects
     public class SignerInfo
     {
         [JsonProperty("public_key")]
-        public ExtensionOption PublicKey { get; set; }
+        public Dictionary<string, object> PublicKey { get; set; }
 
         [JsonProperty("mode_info")]
         public ModeInfo ModeInfo { get; set; }
@@ -269,7 +269,7 @@ namespace Terra.Net.Lcd.Objects
         /// transaction.
         /// </summary>
         [JsonProperty("messages")]
-        public List<ExtensionOption> Messages { get; set; }
+        public List<Dictionary<string,object>> Messages { get; set; }
         /// <summary>
         /// memo is any arbitrary note/comment to be added to the transaction.
         /// WARNING: in clients, any publicly exposed text should not be called memo,
@@ -291,10 +291,10 @@ namespace Terra.Net.Lcd.Objects
         /// and can't be handled, they will be ignored
         /// </summary>
         [JsonProperty("extension_options")]
-        public List<ExtensionOption> ExtensionOptions { get; set; }
+        public List<Dictionary<string,object>> ExtensionOptions { get; set; }
 
         [JsonProperty("non_critical_extension_options")]
-        public List<ExtensionOption> NonCriticalExtensionOptions { get; set; }
+        public List<Dictionary<string,object>> NonCriticalExtensionOptions { get; set; }
     }
 
     /// <summary>
@@ -378,7 +378,7 @@ namespace Terra.Net.Lcd.Objects
     ///       "value": "1.212s"
     ///     }
     /// </summary>
-    public class ExtensionOption
+    public class ProtoBufMessage
     {
         /// <summary>
         /// A URL/resource name that uniquely identifies the type of the serializedprotocol buffer message. This string must contain at least
