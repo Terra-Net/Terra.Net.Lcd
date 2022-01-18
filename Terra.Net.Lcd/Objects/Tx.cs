@@ -53,7 +53,7 @@ namespace Terra.Net.Lcd.Objects
         public string Type { get; set; }
 
         [JsonProperty("value")]
-        public TxValue Value { get; set; }
+        public TxValueOld Value { get; set; }
     }
     public class TerraTransactionMessage
     {
@@ -62,7 +62,16 @@ namespace Terra.Net.Lcd.Objects
         [JsonProperty("value")]
         public Dictionary<string, object> MesasgeValue { get; set; }
     }
-    public class TxValue
+    public class TxValueOld : TxValuePostBodyOld
+    {
+        /// <summary>
+        /// timeout is the block height after which this transaction will not be processed by the chain
+        /// </summary>
+        [JsonProperty("timeout_height")]
+        public ulong? TimeoutHeight { get; set; }
+    }
+
+    public class TxValuePostBodyOld
     {
         [JsonProperty("msg")]
         public List<TerraTransactionMessage> Messages { get; set; }
@@ -75,9 +84,6 @@ namespace Terra.Net.Lcd.Objects
 
         [JsonProperty("memo")]
         public string Note { get; set; }
-
-        [JsonProperty("timeout_height")]
-        public ulong TimeoutHeight { get; set; }
     }
 
     public class FeeOld

@@ -15,7 +15,7 @@ namespace Terra.Net.Lcd
         private const string GetMempoolUrl = "/v1/mempool";
         private const string GetTxInMempoolUrl = "/v1/mempool/{}";
         private const string GetTxOldUrl = "/v1/tx/{}";
-        private const string GetTransactionsListOldUrl = "/v1/txs";
+        private const string TransactionsListOldUrl = "/v1/txs";
         private const string GetBlockByHeightUrl = "/cosmos/base/tendermint/v1beta1/blocks/{}";
         private const string GetNodeInfoUrl = "/cosmos/base/tendermint/v1beta1/node_info";
         private const string GetSyncingUrl = "/cosmos/base/tendermint/v1beta1/syncing";
@@ -83,8 +83,17 @@ namespace Terra.Net.Lcd
         public async Task<CallResult<TxsListResponseOld>> GetTxListOld(GetTxListRequest request, CancellationToken ct = default)
         {
             var parameters = request?.AsDictionary();
-            return await Get<TxsListResponseOld>(GetTransactionsListOldUrl, parameters, ct);
+            return await Get<TxsListResponseOld>(TransactionsListOldUrl, parameters, ct);
         }
+
+        /// <inheritdoc />
+        public async Task<CallResult<BroadcastTxResponseOld>> BroadcastTx(BroadcastTxRequestOld body, CancellationToken ct = default)
+        {
+            var p = new Dictionary<string, object>();
+            p.Add("body", body);
+            return await Post<BroadcastTxResponseOld>(TransactionsListOldUrl, p, ct);
+        }
+
         #endregion  // Legacy tx endpoints
 
         #region Service

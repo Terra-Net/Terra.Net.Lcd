@@ -46,7 +46,7 @@ namespace Terra.Net.Lcd.Objects
     ///  TxResponse defines a structure containing relevant tx data and metadata.The
     /// tags are stringified and the log is JSON decoded.
     /// </summary>
-    public partial class TxResponse
+    public partial class TxResponse : GasInfo
     {
         /// <summary>
         /// The block height
@@ -97,18 +97,6 @@ namespace Terra.Net.Lcd.Objects
         [JsonProperty("info")]
         public string Info { get; set; }
 
-        /// <summary>
-        /// Amount of gas requested for transaction.
-        /// </summary>
-        [JsonProperty("gas_wanted")]
-        public ulong GasWanted { get; set; }
-
-        /// <summary>
-        /// Amount of gas consumed by transaction.
-        /// </summary>
-        [JsonProperty("gas_used")]
-        public ulong GasUsed { get; set; }
-
         [JsonProperty("tx")]
         public ExtensionOption Tx { get; set; }
 
@@ -143,5 +131,50 @@ namespace Terra.Net.Lcd.Objects
         /// </summary>
         [JsonProperty("events")]
         public List<Event> Events { get; set; }
+    }
+
+    public class BroadcastTxResponseOld
+    {
+        /// <summary>
+        /// Tx hash
+        /// </summary>
+        [JsonProperty("hash")]
+        public string Hash { get; set; }
+
+        /// <summary>
+        /// Block height
+        /// </summary>
+        [JsonProperty("height")]
+        public ulong Height { get; set; }
+        
+        /// <summary>
+        /// tx info
+        /// </summary>
+        [JsonProperty("check_tx")]
+        public BroadcastedTxOld CheckTx { get; set; }
+
+        /// <summary>
+        /// tx info
+        /// </summary>
+        [JsonProperty("deliver_tx")]
+        public BroadcastedTxOld DeliverTx { get; set; }
+    }
+
+    public class BroadcastedTxOld : GasInfo
+    {
+        [JsonProperty("code")]
+        public long Code { get; set; }
+
+        [JsonProperty("data")]
+        public string Data { get; set; }
+
+        [JsonProperty("log")]
+        public string Log { get; set; }
+
+        [JsonProperty("info")]
+        public string Info { get; set; }
+
+        [JsonProperty("tags")]
+        public List<string> Tags { get; set; }
     }
 }

@@ -33,6 +33,9 @@ namespace Terra.Net.Lcd.Interfaces
 
         Task<CallResult<TxsListResponseOld>> GetTxListOld(GetTxListRequest request, CancellationToken ct = default);
 
+        Task<CallResult<BroadcastTxResponseOld>> BroadcastTx(BroadcastTxRequestOld body, CancellationToken ct = default);
+
+
 
         #endregion
 

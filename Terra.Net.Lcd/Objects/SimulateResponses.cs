@@ -12,7 +12,7 @@ namespace Terra.Net.Lcd.Objects
         /// gas_info is the information about gas used in the simulation.
         /// </summary>
         [JsonProperty("gas_info")]
-        public SimulateResponseGasInfo GasInfo { get; set; }
+        public GasInfo GasInfo { get; set; }
 
         /// <summary>
         /// result is the result of the simulation.
@@ -21,7 +21,7 @@ namespace Terra.Net.Lcd.Objects
         public SimulateResponseResult Result { get; set; }
     }
 
-    public class SimulateResponseGasInfo
+    public class GasInfo
     {
         /// <summary>
         /// GasWanted is the maximum units of work we allow this tx to perform.
